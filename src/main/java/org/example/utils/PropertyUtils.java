@@ -9,13 +9,13 @@ public class PropertyUtils {
     private static Properties _props = new Properties();
 
     static {
-        try(InputStream input = PropertyUtils.class.getClassLoader().getResourceAsStream("application.properties")) {
+        try(InputStream input = PropertyUtils.class.getClassLoader().getResourceAsStream("app.properties")) {
             if(input == null) {
-                throw new RuntimeException("application.properties not found");
+                throw new RuntimeException("app.properties not found");
             }
             _props.load(input);
         } catch (IOException e) {
-            throw new RuntimeException("Error loading application.properties", e);
+            throw new RuntimeException("Error loading app.properties", e);
         }
     }
 

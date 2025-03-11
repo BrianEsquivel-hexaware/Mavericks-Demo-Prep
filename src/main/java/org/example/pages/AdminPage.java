@@ -4,11 +4,11 @@ import org.openqa.selenium.WebDriver;
 
 public class AdminPage extends BasePage {
 
-    private WebDriver _driver;
+    private WebDriver driver;
     public final String title = "Admin";
 
     public AdminPage(WebDriver driver) {
         super(driver);
-        _driver = driver;
+        this.driver = driver;
     }
 }
