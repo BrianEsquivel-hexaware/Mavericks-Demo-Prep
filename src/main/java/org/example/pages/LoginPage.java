@@ -17,13 +17,16 @@ public class LoginPage extends BasePage{
         this.driver = driver;
     }
 
-    public void login(){
+    public void loginKeys(){
         String username = PropertyUtils.getProperty("user.name");
         String password = PropertyUtils.getProperty("user.pass");
         WebElement userInput = driver.findElement(userInputXP);
         userInput.sendKeys(username);
         WebElement passwordInput = driver.findElement(passwordInputXP);
         passwordInput.sendKeys(password);
+    }
+
+    public void submitLogin(){
         WebElement submitButton = driver.findElement(By.xpath("//button[normalize-space()='Login']"));
         submitButton.click();
     }
