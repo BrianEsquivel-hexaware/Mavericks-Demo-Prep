@@ -35,6 +35,7 @@ public class ApproveEmployeeTimeTest extends BaseTest {
         adminPage.moveToSection(adminPage.title);
         WebElement title = adminPage.getSectionTitle();
         Assert.assertTrue(title.getText().contains(adminPage.title));
+        adminPage.addNewEmployee();
 
         adminPage.logout();
         Thread.sleep(2000);
