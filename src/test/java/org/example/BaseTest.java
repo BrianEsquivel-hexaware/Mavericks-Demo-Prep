@@ -10,6 +10,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
+import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeMethod;
 
 import java.io.IOException;
@@ -36,6 +37,11 @@ public class BaseTest {
             test.log(Status.SKIP, "Skipped test");
         }
         driver.quit();
+    }
+
+    @AfterTest
+    public void teardown(){
+        extent.flush();
     }
 
     public void navigateToApp() throws InterruptedException, IOException {
