@@ -2,7 +2,9 @@ package org.example.pages.utils;
 
 import org.example.pages.AdminPage;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 
 public class AdminPageUtil extends BasePageUtil{
 
@@ -25,6 +27,12 @@ public class AdminPageUtil extends BasePageUtil{
         driver.findElement(AdminPage.listboxDivXP).findElement(xpathBySpecificWord("ESS")).click();
         driver.findElement(AdminPage.statusDropXP).click();
         driver.findElement(AdminPage.listboxDivXP).findElement(xpathBySpecificWord("Enabled")).click();
+        WebElement employeeInput = driver.findElement(AdminPage.EmpNameInputXP);
+        employeeInput.sendKeys("Peter");
+        Thread.sleep(2000);
+        employeeInput.sendKeys(Keys.ARROW_DOWN);
+        employeeInput.sendKeys(Keys.ENTER);
+
         Thread.sleep(2000);
     }
 }
