@@ -3,6 +3,7 @@ package org.example;
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 import org.example.pages.AdminPage;
+import org.example.pages.utils.AdminPageUtil;
 import org.example.utils.PropertyUtils;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
@@ -31,7 +32,7 @@ public class ApproveEmployeeTimeTest extends BaseTest {
     public void EmployeeTimesheet_Approved() throws IOException, InterruptedException {
         test = extent.createTest("EmployeeTimesheet_Approved");
         navigateToApp();
-        AdminPage adminPage = new AdminPage(driver);
+        AdminPageUtil adminPage = new AdminPageUtil(driver);
         adminPage.moveToSection(adminPage.title);
         WebElement title = adminPage.getSectionTitle();
         Assert.assertTrue(title.getText().contains(adminPage.title));

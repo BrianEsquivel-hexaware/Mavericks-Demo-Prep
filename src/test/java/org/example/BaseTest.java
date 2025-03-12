@@ -4,8 +4,7 @@ import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.MediaEntityBuilder;
 import com.aventstack.extentreports.Status;
-import com.aventstack.extentreports.model.Report;
-import org.example.pages.LoginPage;
+import org.example.pages.utils.LoginPageUtil;
 import org.example.utils.ReportUtils;
 import org.example.utils.ScreenShotUtils;
 import org.openqa.selenium.WebDriver;
@@ -50,7 +49,7 @@ public class BaseTest {
         driver.navigate().to("https://opensource-demo.orangehrmlive.com/");
         Thread.sleep(2000);
         ReportUtils.addScreenShotSuccess(driver, test, "Navigated to app");
-        LoginPage loginPage = new LoginPage(driver);
+        LoginPageUtil loginPage = new LoginPageUtil(driver);
         loginPage.loginKeys();
         ReportUtils.addScreenShotSuccess(driver, test, "Typed credentials");
         loginPage.submitLogin();
