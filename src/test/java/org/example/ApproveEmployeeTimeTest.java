@@ -53,7 +53,7 @@ public class ApproveEmployeeTimeTest extends BaseTest {
         TimesheetPageUtil timePage = new TimesheetPageUtil(driver);
         timePage.moveToSection(timePage.title);
 
-        //5. Add a Timesheet for the new employee
+        //5. Add a Timesheet for the new employee (New changes)
 
 
         //6. Login as an Admin
