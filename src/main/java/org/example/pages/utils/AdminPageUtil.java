@@ -1,6 +1,7 @@
 package org.example.pages.utils;
 
 import org.example.pages.AdminPage;
+import org.example.utils.PropertyUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
@@ -27,11 +28,18 @@ public class AdminPageUtil extends BasePageUtil{
         driver.findElement(AdminPage.listboxDivXP).findElement(xpathBySpecificWord("ESS")).click();
         driver.findElement(AdminPage.statusDropXP).click();
         driver.findElement(AdminPage.listboxDivXP).findElement(xpathBySpecificWord("Enabled")).click();
-        WebElement employeeInput = driver.findElement(AdminPage.EmpNameInputXP);
-        employeeInput.sendKeys("Peter");
+        WebElement actualInput = driver.findElement(AdminPage.EmpNameInputXP);
+        actualInput.sendKeys("Peter");
         Thread.sleep(2000);
-        employeeInput.sendKeys(Keys.ARROW_DOWN);
-        employeeInput.sendKeys(Keys.ENTER);
+        actualInput.sendKeys(Keys.ARROW_DOWN);
+        actualInput.sendKeys(Keys.ENTER);
+        actualInput = driver.findElement(AdminPage.usernameInputXP);
+        actualInput.sendKeys(PropertyUtils.getProperty("user.name"));
+        actualInput = driver.findElement(AdminPage.passwordInputXP);
+        actualInput.sendKeys(PropertyUtils.getProperty("user.pass"));
+        actualInput = driver.findElement(AdminPage.confPassInputXP);
+        actualInput.sendKeys(PropertyUtils.getProperty("user.pass"));
+        driver.findElement(AdminPage.saveBtnXP).click();
 
         Thread.sleep(2000);
     }
