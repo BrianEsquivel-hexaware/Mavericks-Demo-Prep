@@ -12,4 +12,9 @@ public class ReportUtils {
         String ssPath = ScreenShotUtils.getScreenShotPath(driver);
         test.pass(message, MediaEntityBuilder.createScreenCaptureFromPath(ssPath).build());
     }
+
+    public static void addScreenShotFail(WebDriver driver, ExtentTest test, String message) throws IOException {
+        String ssPath = ScreenShotUtils.getScreenShotPath(driver);
+        test.fail(message, MediaEntityBuilder.createScreenCaptureFromPath(ssPath).build());
+    }
 }

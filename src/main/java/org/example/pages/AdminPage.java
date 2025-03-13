@@ -13,4 +13,5 @@ public class AdminPage {
     public static final By passwordInputXP = By.xpath("//*[@id=\"app\"]/div[1]/div[2]/div[2]/div/div/form/div[2]/div/div[1]/div/div[2]/input");
     public static final By confPassInputXP = By.xpath("//*[@id=\"app\"]/div[1]/div[2]/div[2]/div/div/form/div[2]/div/div[2]/div/div[2]/input");
     public static final By saveBtnXP = By.xpath("//button[normalize-space()='Save']");
+    public static final By successMsgXP = By.xpath("//p[normalize-space()='Successfully Saved']");
 }

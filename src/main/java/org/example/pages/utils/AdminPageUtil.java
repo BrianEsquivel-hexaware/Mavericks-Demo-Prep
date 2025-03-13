@@ -6,6 +6,10 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
 
 public class AdminPageUtil extends BasePageUtil{
 
@@ -40,7 +44,12 @@ public class AdminPageUtil extends BasePageUtil{
         actualInput = driver.findElement(AdminPage.confPassInputXP);
         actualInput.sendKeys(PropertyUtils.getProperty("user.pass"));
         driver.findElement(AdminPage.saveBtnXP).click();
+    }
 
-        Thread.sleep(2000);
+    public void successfulAdd() throws InterruptedException {
+        WebDriverWait waitForResults = new WebDriverWait(driver, Duration.ofSeconds(10));
+        waitForResults.until(
+                ExpectedConditions.visibilityOfAllElementsLocatedBy(AdminPage.successMsgXP));
+        Thread.sleep(500);
     }
 }
