@@ -12,10 +12,10 @@ import java.util.Random;
 public class ScreenShotUtils {
 
     public static String getScreenShotPath(WebDriver driver) throws IOException {
+        Random rand = new Random();
         TakesScreenshot ts = (TakesScreenshot) driver;
         File srcFile = ts.getScreenshotAs(OutputType.FILE);
-        Random rand = new Random();
-        File destFile = new File(PropertyUtils.getProperty("reportSS.source")+"/"+rand+".png");
+        File destFile = new File(PropertyUtils.getProperty("reportSS.source")+"/"+ rand.toString()+".png");
         FileUtils.copyFile(srcFile, destFile);
         return destFile.getAbsolutePath();
     }
