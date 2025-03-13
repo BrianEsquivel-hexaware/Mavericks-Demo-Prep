@@ -16,9 +16,7 @@ public class LoginPageUtil extends BasePageUtil {
         this.driver = driver;
     }
 
-    public void loginKeys(){
-        String username = PropertyUtils.getProperty("admin.name");
-        String password = PropertyUtils.getProperty("admin.pass");
+    public void LoginKeys(String username, String password) {
         WebElement userInput = driver.findElement(LoginPage.userInputXP);
         userInput.sendKeys(username);
         WebElement passwordInput = driver.findElement(LoginPage.passwordInputXP);
