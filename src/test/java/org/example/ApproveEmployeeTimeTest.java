@@ -57,6 +57,9 @@ public class ApproveEmployeeTimeTest extends BaseTest {
 
         //5. Add a Timesheet for the new employee (New changes)
         timePage.selectDate();
+        timePage.editTimesheet();
+        ReportUtils.addScreenShotSuccess(driver, test, "Timesheet successfully added");
+        Assert.assertTrue(timePage.successfulAddTime());
 
         //6. Login as an Admin
 

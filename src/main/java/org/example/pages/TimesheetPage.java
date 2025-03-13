@@ -19,5 +19,11 @@ public class TimesheetPage{
     public static final By fridayInputXP = By.xpath("//*[@id=\"app\"]/div[1]/div[2]/div[2]/div/form/div[2]/table/tbody/tr[1]/td[7]/div/div[2]/input");
     public static final By saturdayInputXP = By.xpath("//*[@id=\"app\"]/div[1]/div[2]/div[2]/div/form/div[2]/table/tbody/tr[1]/td[8]/div/div[2]/input");
     public static final By sundayInputXP = By.xpath("//*[@id=\"app\"]/div[1]/div[2]/div[2]/div/form/div[2]/table/tbody/tr[1]/td[9]/div/div[2]/input");
+    public static final By saveBtnXP = By.xpath("//button[normalize-space()='Save']");
+    public static final By submitBtnXP = By.xpath("//button[normalize-space()='Submit']");
+    public static final By statusSubXP = By.xpath("//p[normalize-space()='Status: Submitted']");
+    public static final By successSaveMsgXP = By.xpath("//p[normalize-space()='Successfully Saved']");
 
+    //Just in case needed
+    public static final By deleteBtnXP = By.xpath("//*[@id=\"app\"]/div[1]/div[2]/div[2]/div/form/div[2]/table/tbody/tr[1]/td[10]/button");
 }
