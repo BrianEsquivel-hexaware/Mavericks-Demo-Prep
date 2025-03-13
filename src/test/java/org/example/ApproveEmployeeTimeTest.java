@@ -52,9 +52,11 @@ public class ApproveEmployeeTimeTest extends BaseTest {
         //4. Move to time module
         TimesheetPageUtil timePage = new TimesheetPageUtil(driver);
         timePage.moveToSection(timePage.title);
+        title = timePage.getSectionTitle();
+        Assert.assertTrue(title.getText().contains(timePage.title));
 
         //5. Add a Timesheet for the new employee (New changes)
-
+        timePage.selectDate();
 
         //6. Login as an Admin
 
