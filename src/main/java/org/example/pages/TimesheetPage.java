@@ -29,6 +29,9 @@ public class TimesheetPage{
     public static final By adminViewHoursXP = By.xpath("//*[@id=\"app\"]/div[1]/div[2]/div[2]/div/form/div[2]/table/tbody/tr[2]/td[normalize-space()='40:00']");
     public static final By commentsTextareaXP = By.xpath("//textarea[@placeholder='Type here ...']");
     public static final By approveBtnXP = By.xpath("//button[normalize-space()='Approve']");
+    public static final By generalHTMLXP = By.xpath("/html");
+    public static final By approveMsgXP = By.xpath("//p[normalize-space()='Timesheet Approved']");
+    public static final By statusApprovedXP = By.xpath("//p[normalize-space()='Status: Approved']");
 
     //Just in case needed
     public static final By deleteBtnXP = By.xpath("//*[@id=\"app\"]/div[1]/div[2]/div[2]/div/form/div[2]/table/tbody/tr[1]/td[10]/button");

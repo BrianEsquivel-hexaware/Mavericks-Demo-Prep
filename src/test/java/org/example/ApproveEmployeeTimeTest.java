@@ -101,21 +101,29 @@ public class ApproveEmployeeTimeTest extends BaseTest {
         //7. Search the employee´s timesheet by name
         TimesheetPageUtil timePage = new TimesheetPageUtil(driver);
         timePage.searchEmpTimesheet();
-        ReportUtils.addScreenShotSuccess(driver, test, "New user´s Timesheet searched");
-
-
 
         //8. Validate the hours in the employee´s Timesheet
+        timePage.selectDate();
+        Assert.assertTrue(timePage.validateTotalHours());
+        ReportUtils.addScreenShotSuccess(driver, test, "New user´s Timesheet searched and has the correct total hours");
+    }
 
+    @Test(dependsOnMethods = "searchTimesheetByUser")
+    public void adminApprovesTimesheet() throws IOException, InterruptedException {
+        test = extent.createTest("adminApprovesTimesheet");
 
         //9. Approve the timesheet with the "Approved" message
-
+        TimesheetPageUtil timePage = new TimesheetPageUtil(driver);
+        timePage.approveTimesheet();
+        Assert.assertTrue(timePage.successfulApprove());
+        ReportUtils.addScreenShotSuccess(driver, test, "User successfully approved");
+        Thread.sleep(1000);
+        timePage.logout();
 
         //10. Login as the new user
 
 
         //11. Validate the total hours and the message of "Approved"
-
 
     }
 
