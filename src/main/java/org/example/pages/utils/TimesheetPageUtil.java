@@ -83,4 +83,18 @@ public class TimesheetPageUtil extends BasePageUtil {
         }
     }
 
+    public void searchEmpTimesheet() throws InterruptedException {
+        WebElement empInput = driver.findElement(TimesheetPage.empSearchInputXP);
+        empInput.sendKeys("P");
+        Thread.sleep(2000);
+        empInput.sendKeys(Keys.ARROW_DOWN);
+        empInput.sendKeys(Keys.ENTER);
+        driver.findElement(TimesheetPage.viewTSButtonXP).click();
+        Thread.sleep(2000);
+    }
+
+    public void validateTotalHours() {
+
+    }
+
 }
