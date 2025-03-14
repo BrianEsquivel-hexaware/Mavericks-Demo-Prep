@@ -18,6 +18,7 @@ import static org.example.utils.ScreenShotUtils.clearFolder;
 
 public class ApproveEmployeeTimeTest extends BaseTest {
 
+    //Next refactor
     @BeforeTest
     public void setup(){
         String basePath = PropertyUtils.getProperty("reports.source");
