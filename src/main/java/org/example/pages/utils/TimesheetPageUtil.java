@@ -31,7 +31,7 @@ public class TimesheetPageUtil extends BasePageUtil {
         try {
             driver.findElement(TimesheetPage.deleteBtnXP).click();
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("The Timesheet was new so there was no need to delete any past one");
         }
         Thread.sleep(1000);
         WebElement actualInput = driver.findElement(TimesheetPage.projectNameInputXP);
@@ -61,7 +61,7 @@ public class TimesheetPageUtil extends BasePageUtil {
         try {
             driver.findElement(TimesheetPage.submitBtnXP).click();
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("Timesheet was already submitted, it only was edited");
         }
         Thread.sleep(3000);
     }
@@ -81,6 +81,39 @@ public class TimesheetPageUtil extends BasePageUtil {
         } catch (Exception e) {
             return false;
         }
+    }
+
+    public void searchEmpTimesheet() throws InterruptedException {
+        WebElement empInput = driver.findElement(TimesheetPage.empSearchInputXP);
+        empInput.sendKeys("P");
+        Thread.sleep(2000);
+        empInput.sendKeys(Keys.ARROW_DOWN);
+        empInput.sendKeys(Keys.ENTER);
+        driver.findElement(TimesheetPage.viewTSButtonXP).click();
+        Thread.sleep(2000);
+    }
+
+    public boolean validateTotalHours() {
+        boolean success = true;
+        success = textValidator(TimesheetPage.adminViewHoursXP);
+        return success;
+    }
+
+    public void approveTimesheet(){
+        WebElement actualElement = driver.findElement(TimesheetPage.commentsTextareaXP);
+        actualElement.sendKeys("Approved");
+        actualElement = driver.findElement(TimesheetPage.generalHTMLXP);
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("arguments[0].scrollTop = arguments[0].scrollHeight", actualElement);
+        driver.findElement(TimesheetPage.approveBtnXP).click();
+    }
+
+    public boolean successfulApprove() throws InterruptedException {
+        WebDriverWait waitForResults = new WebDriverWait(driver, Duration.ofSeconds(10));
+        waitForResults.until(
+                ExpectedConditions.visibilityOfAllElementsLocatedBy(TimesheetPage.approveMsgXP));
+        Thread.sleep(500);
+        return textValidator(TimesheetPage.statusApprovedXP);
     }
 
 }

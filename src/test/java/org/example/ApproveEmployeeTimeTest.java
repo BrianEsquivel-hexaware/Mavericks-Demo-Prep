@@ -2,7 +2,6 @@ package org.example;
 
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
-import org.example.pages.AdminPage;
 import org.example.pages.utils.AdminPageUtil;
 import org.example.pages.utils.TimesheetPageUtil;
 import org.example.utils.PropertyUtils;
@@ -36,7 +35,7 @@ public class ApproveEmployeeTimeTest extends BaseTest {
     public void firstAdminLogin() throws IOException, InterruptedException {
         test = extent.createTest("firstAdminLogin");
 
-        //1. Navigate to app, login as admin and moves to AdminPage
+        //1. Navigate to app, login as admin and moves to Admin module
         navigateToApp();
         AdminPageUtil adminPage = new AdminPageUtil(driver);
         adminPage.moveToSection(adminPage.title);
@@ -63,7 +62,7 @@ public class ApproveEmployeeTimeTest extends BaseTest {
         //3. Login as the new user
         userLogin();
 
-        //4. Move to time module
+        //4. Move to Time module
         TimesheetPageUtil timePage = new TimesheetPageUtil(driver);
         timePage.moveToSection(timePage.title);
         WebElement title = timePage.getSectionTitle();
@@ -80,26 +79,51 @@ public class ApproveEmployeeTimeTest extends BaseTest {
         timePage.editTimesheet();
         Assert.assertTrue(timePage.successfulAddTime());
         ReportUtils.addScreenShotSuccess(driver, test, "Timesheet successfully added and submitted with the correct total hours");
+        timePage.logout();
+    }
 
-        //6. Login as an Admin
+    @Test(dependsOnMethods = "userCreatesTimesheet")
+    public void secondAdminLogin() throws IOException, InterruptedException {
+        test = extent.createTest("secondAdminLogin");
 
+        //6. Login as Admin again and moves to Time module
+        adminLogin();
+        TimesheetPageUtil timePage = new TimesheetPageUtil(driver);
+        timePage.moveToSection(timePage.title);
+        WebElement title = timePage.getSectionTitle();
+        Assert.assertTrue(title.getText().contains(timePage.title));
+    }
 
-        //7. Go to Time module and search the employee´s name
+    @Test(dependsOnMethods = "secondAdminLogin")
+    public void searchTimesheetByUser() throws IOException, InterruptedException {
+        test = extent.createTest("searchTimesheetByUser");
 
+        //7. Search the employee´s timesheet by name
+        TimesheetPageUtil timePage = new TimesheetPageUtil(driver);
+        timePage.searchEmpTimesheet();
 
         //8. Validate the hours in the employee´s Timesheet
+        timePage.selectDate();
+        Assert.assertTrue(timePage.validateTotalHours());
+        ReportUtils.addScreenShotSuccess(driver, test, "New user´s Timesheet searched and has the correct total hours");
+    }
 
+    @Test(dependsOnMethods = "searchTimesheetByUser")
+    public void adminApprovesTimesheet() throws IOException, InterruptedException {
+        test = extent.createTest("adminApprovesTimesheet");
 
         //9. Approve the timesheet with the "Approved" message
-
+        TimesheetPageUtil timePage = new TimesheetPageUtil(driver);
+        timePage.approveTimesheet();
+        Assert.assertTrue(timePage.successfulApprove());
+        ReportUtils.addScreenShotSuccess(driver, test, "User successfully approved");
+        Thread.sleep(1000);
+        timePage.logout();
 
         //10. Login as the new user
 
 
         //11. Validate the total hours and the message of "Approved"
-
-        timePage.logout();
-        Thread.sleep(2000);
 
     }
 
