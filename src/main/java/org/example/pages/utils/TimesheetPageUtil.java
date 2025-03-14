@@ -57,18 +57,21 @@ public class TimesheetPageUtil extends BasePageUtil {
         driver.findElement(TimesheetPage.saveBtnXP).click();
         waitForResults.until(
                 ExpectedConditions.visibilityOfAllElementsLocatedBy(TimesheetPage.editBtnXP));
-        Thread.sleep(3000);
+        Thread.sleep(2000);
         try {
             driver.findElement(TimesheetPage.submitBtnXP).click();
         } catch (Exception e) {
             e.printStackTrace();
         }
+        Thread.sleep(3000);
     }
 
     public boolean successfulAddTime() throws InterruptedException {
-        boolean success;
+        boolean success = true;
         success = textValidator(TimesheetPage.statusSubXP);
-
+        if(success) {
+            success = textValidator(TimesheetPage.totalHoursXP);
+        }
         return success;
     }
 

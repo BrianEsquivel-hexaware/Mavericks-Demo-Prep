@@ -8,6 +8,7 @@ import org.example.pages.utils.TimesheetPageUtil;
 import org.example.utils.PropertyUtils;
 import org.example.utils.ReportUtils;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.Assert;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
@@ -28,23 +29,36 @@ public class ApproveEmployeeTimeTest extends BaseTest {
         extent.attachReporter(spark);
         extent.setSystemInfo("Tester", "Brian Esquivel");
         clearFolder(PropertyUtils.getProperty("reportSS.source"));
+        driver = new FirefoxDriver();
     }
 
-    @Test
-    public void EmployeeTimesheet_Approved() throws IOException, InterruptedException {
-        //1. Navigate to app and login
-        test = extent.createTest("EmployeeTimesheet_Approved");
-        navigateToApp();
+    @Test(priority = 1)
+    public void firstAdminLogin() throws IOException, InterruptedException {
+        test = extent.createTest("firstAdminLogin");
 
-        //2. Create a new user and validate
+        //1. Navigate to app, login as admin and moves to AdminPage
+        navigateToApp();
         AdminPageUtil adminPage = new AdminPageUtil(driver);
         adminPage.moveToSection(adminPage.title);
         WebElement title = adminPage.getSectionTitle();
         Assert.assertTrue(title.getText().contains(adminPage.title));
+    }
+
+    @Test(dependsOnMethods = "firstAdminLogin")
+    public void createNewUser() throws InterruptedException, IOException {
+        test = extent.createTest("createNewUser");
+
+        //2. Create a new user, validate and logout
+        AdminPageUtil adminPage = new AdminPageUtil(driver);
         adminPage.addNewEmployee();
         adminPage.successfulAdd();
         ReportUtils.addScreenShotSuccess(driver, test, "User successfully added");
         adminPage.logout();
+    }
+
+    @Test(dependsOnMethods = "createNewUser")
+    public void userMovesToTimeModule() throws IOException, InterruptedException {
+        test = extent.createTest("userMovesToTimeModule");
 
         //3. Login as the new user
         userLogin();
@@ -52,14 +66,20 @@ public class ApproveEmployeeTimeTest extends BaseTest {
         //4. Move to time module
         TimesheetPageUtil timePage = new TimesheetPageUtil(driver);
         timePage.moveToSection(timePage.title);
-        title = timePage.getSectionTitle();
+        WebElement title = timePage.getSectionTitle();
         Assert.assertTrue(title.getText().contains(timePage.title));
+    }
 
-        //5. Add a Timesheet for the new employee (New changes)
+    @Test(dependsOnMethods = "userMovesToTimeModule")
+    public void userCreatesTimesheet() throws IOException, InterruptedException {
+        test = extent.createTest("userCreatesTimesheet");
+
+        //5. Add a Timesheet for the new employee
+        TimesheetPageUtil timePage = new TimesheetPageUtil(driver);
         timePage.selectDate();
         timePage.editTimesheet();
-        ReportUtils.addScreenShotSuccess(driver, test, "Timesheet successfully added");
         Assert.assertTrue(timePage.successfulAddTime());
+        ReportUtils.addScreenShotSuccess(driver, test, "Timesheet successfully added and submitted with the correct total hours");
 
         //6. Login as an Admin
 

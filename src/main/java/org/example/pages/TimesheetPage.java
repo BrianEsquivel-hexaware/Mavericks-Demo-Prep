@@ -23,6 +23,7 @@ public class TimesheetPage{
     public static final By submitBtnXP = By.xpath("//button[normalize-space()='Submit']");
     public static final By statusSubXP = By.xpath("//p[normalize-space()='Status: Submitted']");
     public static final By successSaveMsgXP = By.xpath("//p[normalize-space()='Successfully Saved']");
+    public static final By totalHoursXP = By.xpath("//*[@id=\"app\"]/div[1]/div[2]/div[2]/div/form/div[2]/table/tbody/tr[2]/td[normalize-space()='40:00']");
 
     //Just in case needed
     public static final By deleteBtnXP = By.xpath("//*[@id=\"app\"]/div[1]/div[2]/div[2]/div/form/div[2]/table/tbody/tr[1]/td[10]/button");

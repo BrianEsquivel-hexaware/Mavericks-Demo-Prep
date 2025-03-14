@@ -28,11 +28,6 @@ public class BaseTest {
     ExtentTest test;
     WebDriver driver;
 
-    @BeforeMethod
-    public void beforeMethod() {
-        driver = new FirefoxDriver();
-    }
-
     @AfterMethod
     public void tearDown(ITestResult result) throws IOException {
         if(result.getStatus() == ITestResult.SUCCESS){
@@ -43,11 +38,11 @@ public class BaseTest {
         } else if (result.getStatus() == ITestResult.SKIP){
             test.log(Status.SKIP, "Skipped test");
         }
-        driver.quit();
     }
 
     @AfterTest
     public void teardown(){
+        driver.quit();
         extent.flush();
     }
 
