@@ -27,6 +27,8 @@ public class ApproveEmployeeTimeTest extends BaseTest {
         extent = new ExtentReports();
         extent.attachReporter(spark);
         extent.setSystemInfo("Tester", "Brian Esquivel");
+        extent.setSystemInfo("Selenium Version", "4.29.0");
+        extent.setSystemInfo("Java Version", "21");
         clearFolder(PropertyUtils.getProperty("reportSS.source"));
         driver = new FirefoxDriver();
     }
@@ -119,12 +121,24 @@ public class ApproveEmployeeTimeTest extends BaseTest {
         ReportUtils.addScreenShotSuccess(driver, test, "User successfully approved");
         Thread.sleep(1000);
         timePage.logout();
+    }
 
-        //10. Login as the new user
+    @Test(dependsOnMethods = "adminApprovesTimesheet")
+    public void userValidatesApproval() throws IOException, InterruptedException {
+        test = extent.createTest("userValidatesApproval");
 
+        //10. Login as the new user and moves to time module
+        userLogin();
+        TimesheetPageUtil timePage = new TimesheetPageUtil(driver);
+        timePage.moveToSection(timePage.title);
+        WebElement title = timePage.getSectionTitle();
+        Assert.assertTrue(title.getText().contains(timePage.title));
 
         //11. Validate the total hours and the message of "Approved"
-
+        Assert.assertTrue(timePage.userValidatesTimeApprove());
+        ReportUtils.addScreenShotSuccess(driver, test, "User validated the Approved Status and the total of hours");
+        timePage.logout();
+        Thread.sleep(2000);
     }
 
 }

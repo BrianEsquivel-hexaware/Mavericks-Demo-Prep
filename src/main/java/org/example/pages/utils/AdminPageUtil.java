@@ -33,7 +33,7 @@ public class AdminPageUtil extends BasePageUtil{
         driver.findElement(AdminPage.statusDropXP).click();
         driver.findElement(AdminPage.listboxDivXP).findElement(xpathBySpecificWord("Enabled")).click();
         WebElement actualInput = driver.findElement(AdminPage.EmpNameInputXP);
-        actualInput.sendKeys("P");
+        actualInput.sendKeys(PropertyUtils.getProperty("emp.name"));
         Thread.sleep(2000);
         actualInput.sendKeys(Keys.ARROW_DOWN);
         actualInput.sendKeys(Keys.ENTER);

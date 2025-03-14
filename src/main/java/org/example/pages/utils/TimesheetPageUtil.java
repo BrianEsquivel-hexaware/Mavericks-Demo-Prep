@@ -1,6 +1,7 @@
 package org.example.pages.utils;
 
 import org.example.pages.TimesheetPage;
+import org.example.utils.PropertyUtils;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -85,7 +86,7 @@ public class TimesheetPageUtil extends BasePageUtil {
 
     public void searchEmpTimesheet() throws InterruptedException {
         WebElement empInput = driver.findElement(TimesheetPage.empSearchInputXP);
-        empInput.sendKeys("P");
+        empInput.sendKeys(PropertyUtils.getProperty("emp.name"));
         Thread.sleep(2000);
         empInput.sendKeys(Keys.ARROW_DOWN);
         empInput.sendKeys(Keys.ENTER);
@@ -114,6 +115,15 @@ public class TimesheetPageUtil extends BasePageUtil {
                 ExpectedConditions.visibilityOfAllElementsLocatedBy(TimesheetPage.approveMsgXP));
         Thread.sleep(500);
         return textValidator(TimesheetPage.statusApprovedXP);
+    }
+
+    public boolean userValidatesTimeApprove(){
+        boolean success = true;
+        success = textValidator(TimesheetPage.statusApprovedXP);
+        if(success) {
+            success = textValidator(TimesheetPage.adminViewHoursXP);
+        }
+        return success;
     }
 
 }
