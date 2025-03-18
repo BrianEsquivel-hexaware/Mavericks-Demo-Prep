@@ -11,6 +11,7 @@ import java.util.Random;
 
 public class ScreenShotUtils {
 
+    //Helps to get the SS of the current moment in the test and returns the path where it was kept
     public static String getScreenShotPath(WebDriver driver) throws IOException {
         Random rand = new Random();
         TakesScreenshot ts = (TakesScreenshot) driver;
@@ -20,6 +21,7 @@ public class ScreenShotUtils {
         return destFile.getAbsolutePath();
     }
 
+    //Is used to clean the folder where the old SS are kept to save the new ones
     public static void clearFolder(String path){
         File folder = new File(path);
 

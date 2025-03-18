@@ -8,6 +8,7 @@ import java.io.IOException;
 
 public class ReportUtils {
 
+    //Helps to add any screenshot to the report whenever in the code is called
     public static void addScreenShotSuccess(WebDriver driver, ExtentTest test, String message) throws IOException {
         String ssPath = ScreenShotUtils.getScreenShotPath(driver);
         test.pass(message, MediaEntityBuilder.createScreenCaptureFromPath(ssPath).build());

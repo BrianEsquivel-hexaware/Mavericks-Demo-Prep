@@ -21,10 +21,12 @@ public class AdminPageUtil extends BasePageUtil{
         this.driver = driver;
     }
 
+    //Helps to obtain specific XPaths for elements with an specific text
     public By xpathBySpecificWord(String role){
         return By.xpath("//*[normalize-space()='"+role+"']");
     }
 
+    //Makes the complete process to add a new employee
     public void addNewEmployee() throws InterruptedException {
         driver.findElement(AdminPage.addEmpButtonXP).click();
         Thread.sleep(2000);
@@ -46,6 +48,7 @@ public class AdminPageUtil extends BasePageUtil{
         driver.findElement(AdminPage.saveBtnXP).click();
     }
 
+    //Validates that the "Successfully Added" message is shown
     public void successfulAdd() throws InterruptedException {
         WebDriverWait waitForResults = new WebDriverWait(driver, Duration.ofSeconds(10));
         waitForResults.until(

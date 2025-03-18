@@ -19,6 +19,7 @@ public class PropertyUtils {
         }
     }
 
+    //Helps to get the values for the variables in the app.properties file
     public static String getProperty(String key) {
         return _props.getProperty(key);
     }

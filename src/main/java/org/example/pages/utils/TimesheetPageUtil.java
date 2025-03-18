@@ -18,12 +18,14 @@ public class TimesheetPageUtil extends BasePageUtil {
         this.driver = driver;
     }
 
+    //Selects the date in the timesheet calendar to choose a specific week
     public void selectDate() throws InterruptedException {
         driver.findElement(TimesheetPage.dateInputXP).click();
         driver.findElement(TimesheetPage.dateSelectionXP).click();
         Thread.sleep(2000);
     }
 
+    //Makes the process to edit the timesheet and submit it
     public void editTimesheet() throws InterruptedException {
         driver.findElement(TimesheetPage.editBtnXP).click();
         WebDriverWait waitForResults = new WebDriverWait(driver, Duration.ofSeconds(10));
@@ -67,6 +69,7 @@ public class TimesheetPageUtil extends BasePageUtil {
         Thread.sleep(3000);
     }
 
+    //Validates that the timesheet has the status of "submitted" and that the total hours are correct
     public boolean successfulAddTime() throws InterruptedException {
         boolean success = true;
         success = textValidator(TimesheetPage.statusSubXP);
@@ -76,6 +79,7 @@ public class TimesheetPageUtil extends BasePageUtil {
         return success;
     }
 
+    //Used to make the validations needed to check the timesheet status and total hours
     public boolean textValidator(By XPath) {
         try {
             return driver.findElement(XPath).isDisplayed();
@@ -84,6 +88,7 @@ public class TimesheetPageUtil extends BasePageUtil {
         }
     }
 
+    //Searches for a specific timesheet by the new user´s name
     public void searchEmpTimesheet() throws InterruptedException {
         WebElement empInput = driver.findElement(TimesheetPage.empSearchInputXP);
         empInput.sendKeys(PropertyUtils.getProperty("emp.name"));
@@ -94,12 +99,14 @@ public class TimesheetPageUtil extends BasePageUtil {
         Thread.sleep(2000);
     }
 
+    //Used to assert the total hours validation
     public boolean validateTotalHours() {
         boolean success = true;
         success = textValidator(TimesheetPage.adminViewHoursXP);
         return success;
     }
 
+    //Used to approve the total hours for a timesheet as an admin
     public void approveTimesheet(){
         WebElement actualElement = driver.findElement(TimesheetPage.commentsTextareaXP);
         actualElement.sendKeys("Approved");
@@ -109,6 +116,7 @@ public class TimesheetPageUtil extends BasePageUtil {
         driver.findElement(TimesheetPage.approveBtnXP).click();
     }
 
+    //Validates that the "Successfully Approved" message appears
     public boolean successfulApprove() throws InterruptedException {
         WebDriverWait waitForResults = new WebDriverWait(driver, Duration.ofSeconds(10));
         waitForResults.until(
@@ -117,6 +125,8 @@ public class TimesheetPageUtil extends BasePageUtil {
         return textValidator(TimesheetPage.statusApprovedXP);
     }
 
+    //Used to validate from the user´s side that their timesheet appears with the status of approved
+    //and with the correct total hours
     public boolean userValidatesTimeApprove(){
         boolean success = true;
         success = textValidator(TimesheetPage.statusApprovedXP);

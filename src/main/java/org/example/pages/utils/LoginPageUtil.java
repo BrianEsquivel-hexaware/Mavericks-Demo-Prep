@@ -16,6 +16,7 @@ public class LoginPageUtil extends BasePageUtil {
         this.driver = driver;
     }
 
+    //Used to log in using the credentials sent as parameters
     public void LoginKeys(String username, String password) {
         WebElement userInput = driver.findElement(LoginPage.userInputXP);
         userInput.sendKeys(username);
@@ -23,6 +24,7 @@ public class LoginPageUtil extends BasePageUtil {
         passwordInput.sendKeys(password);
     }
 
+    //Clicks on the login button to submit the credentials
     public void submitLogin(){
         WebElement submitButton = driver.findElement(By.xpath("//button[normalize-space()='Login']"));
         submitButton.click();

@@ -4,6 +4,7 @@ import org.openqa.selenium.By;
 
 public class LoginPage {
 
+    //XPaths used for locating elements in the LoginPage
     public static final By userInputXP = By.xpath("//input[@placeholder='Username']");
     public static final By passwordInputXP = By.xpath("//input[@placeholder='Password']");
 }

@@ -1,43 +1,18 @@
 package org.example;
 
-import com.aventstack.extentreports.ExtentReports;
-import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 import org.example.pages.utils.AdminPageUtil;
 import org.example.pages.utils.TimesheetPageUtil;
-import org.example.utils.PropertyUtils;
 import org.example.utils.ReportUtils;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.Assert;
-import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
 
-import static org.example.utils.ScreenShotUtils.clearFolder;
-
 public class ApproveEmployeeTimeTest extends BaseTest {
-
-    //Next refactor
-    @BeforeTest
-    public void setup(){
-        String basePath = PropertyUtils.getProperty("reports.source");
-        ExtentSparkReporter spark = new ExtentSparkReporter(basePath+"TimesheetApprovalReport.html");
-        spark.config().setReportName("Timesheet Approval Report");
-        spark.config().setDocumentTitle("Test Results");
-        extent = new ExtentReports();
-        extent.attachReporter(spark);
-        extent.setSystemInfo("Tester", "Brian Esquivel");
-        extent.setSystemInfo("Selenium Version", "4.29.0");
-        extent.setSystemInfo("Java Version", "21");
-        clearFolder(PropertyUtils.getProperty("reportSS.source"));
-        driver = new FirefoxDriver();
-    }
 
     @Test(priority = 1)
     public void firstAdminLogin() throws IOException, InterruptedException {
-        test = extent.createTest("firstAdminLogin");
-
         //1. Navigate to app, login as admin and moves to Admin module
         navigateToApp();
         AdminPageUtil adminPage = new AdminPageUtil(driver);
@@ -48,8 +23,6 @@ public class ApproveEmployeeTimeTest extends BaseTest {
 
     @Test(dependsOnMethods = "firstAdminLogin")
     public void createNewUser() throws InterruptedException, IOException {
-        test = extent.createTest("createNewUser");
-
         //2. Create a new user, validate and logout
         AdminPageUtil adminPage = new AdminPageUtil(driver);
         adminPage.addNewEmployee();
@@ -60,8 +33,6 @@ public class ApproveEmployeeTimeTest extends BaseTest {
 
     @Test(dependsOnMethods = "createNewUser")
     public void userMovesToTimeModule() throws IOException, InterruptedException {
-        test = extent.createTest("userMovesToTimeModule");
-
         //3. Login as the new user
         userLogin();
 
@@ -74,8 +45,6 @@ public class ApproveEmployeeTimeTest extends BaseTest {
 
     @Test(dependsOnMethods = "userMovesToTimeModule")
     public void userCreatesTimesheet() throws IOException, InterruptedException {
-        test = extent.createTest("userCreatesTimesheet");
-
         //5. Add a Timesheet for the new employee
         TimesheetPageUtil timePage = new TimesheetPageUtil(driver);
         timePage.selectDate();
@@ -87,8 +56,6 @@ public class ApproveEmployeeTimeTest extends BaseTest {
 
     @Test(dependsOnMethods = "userCreatesTimesheet")
     public void secondAdminLogin() throws IOException, InterruptedException {
-        test = extent.createTest("secondAdminLogin");
-
         //6. Login as Admin again and moves to Time module
         adminLogin();
         TimesheetPageUtil timePage = new TimesheetPageUtil(driver);
@@ -99,8 +66,6 @@ public class ApproveEmployeeTimeTest extends BaseTest {
 
     @Test(dependsOnMethods = "secondAdminLogin")
     public void searchTimesheetByUser() throws IOException, InterruptedException {
-        test = extent.createTest("searchTimesheetByUser");
-
         //7. Search the employee´s timesheet by name
         TimesheetPageUtil timePage = new TimesheetPageUtil(driver);
         timePage.searchEmpTimesheet();
@@ -113,8 +78,6 @@ public class ApproveEmployeeTimeTest extends BaseTest {
 
     @Test(dependsOnMethods = "searchTimesheetByUser")
     public void adminApprovesTimesheet() throws IOException, InterruptedException {
-        test = extent.createTest("adminApprovesTimesheet");
-
         //9. Approve the timesheet with the "Approved" message
         TimesheetPageUtil timePage = new TimesheetPageUtil(driver);
         timePage.approveTimesheet();
@@ -126,8 +89,6 @@ public class ApproveEmployeeTimeTest extends BaseTest {
 
     @Test(dependsOnMethods = "adminApprovesTimesheet")
     public void userValidatesApproval() throws IOException, InterruptedException {
-        test = extent.createTest("userValidatesApproval");
-
         //10. Login as the new user and moves to time module
         userLogin();
         TimesheetPageUtil timePage = new TimesheetPageUtil(driver);
@@ -141,5 +102,4 @@ public class ApproveEmployeeTimeTest extends BaseTest {
         timePage.logout();
         Thread.sleep(2000);
     }
-
 }
