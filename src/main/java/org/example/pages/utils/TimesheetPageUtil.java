@@ -112,15 +112,14 @@ public class TimesheetPageUtil extends BasePageUtil {
         actualElement.sendKeys("Approved");
         actualElement = driver.findElement(TimesheetPage.generalHTMLXP);
         JavascriptExecutor js = (JavascriptExecutor) driver;
-        js.executeScript("arguments[0].scrollTop = arguments[0].scrollHeight", actualElement);
         boolean success = false;
         while(!success) {
             try{
                 success = driver.findElement(TimesheetPage.approveBtnXP).isDisplayed();
             } catch (Exception e) {
                 success = false;
-                System.out.println("A scroll up was needed");
-                js.executeScript("arguments[0].scrollTop -= 50", actualElement);
+                System.out.println("A scroll down was needed");
+                js.executeScript("arguments[0].scrollTop += 50", actualElement);
                 Thread.sleep(500);
             }
         }
