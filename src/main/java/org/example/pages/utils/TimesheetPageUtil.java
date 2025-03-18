@@ -107,13 +107,25 @@ public class TimesheetPageUtil extends BasePageUtil {
     }
 
     //Used to approve the total hours for a timesheet as an admin
-    public void approveTimesheet(){
+    public void approveTimesheet() throws InterruptedException {
         WebElement actualElement = driver.findElement(TimesheetPage.commentsTextareaXP);
         actualElement.sendKeys("Approved");
         actualElement = driver.findElement(TimesheetPage.generalHTMLXP);
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("arguments[0].scrollTop = arguments[0].scrollHeight", actualElement);
+        boolean success = false;
+        while(!success) {
+            try{
+                success = driver.findElement(TimesheetPage.approveBtnXP).isDisplayed();
+            } catch (Exception e) {
+                success = false;
+                System.out.println("A scroll up was needed");
+                js.executeScript("arguments[0].scrollTop -= 50", actualElement);
+                Thread.sleep(500);
+            }
+        }
         driver.findElement(TimesheetPage.approveBtnXP).click();
+        js.executeScript("arguments[0].scrollTop = 0", actualElement);
     }
 
     //Validates that the "Successfully Approved" message appears
